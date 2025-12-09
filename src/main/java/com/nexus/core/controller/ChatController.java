@@ -53,8 +53,11 @@ public class ChatController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Password. Access Denied.");
 
         // Fetch History
-        List<Message> history = chatService.getHistory(requester, otherUser, false);
-        return ResponseEntity.ok(history);
+        if(userService.isLoggedIn(requester)){
+            List<Message> history = chatService.getHistory(requester, otherUser, false);
+            return ResponseEntity.ok(history);
+        }
+        else return ResponseEntity.badRequest().body("Requester is not logged in");
     }
 
     // Group Messaging
