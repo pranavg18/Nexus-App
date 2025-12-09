@@ -35,7 +35,7 @@ Swagger UI was used for easy testing.
 
 ### Direct Messaging
 - Send message to any registered user
-- Stores conversation in '<user1>_<user2>.json' file
+- Stores conversation in `<user1>_<user2>.json` file
 - Retrieve chat history
 - Message timestamps
 - Delete a specific message for everyone
@@ -51,10 +51,10 @@ Swagger UI was used for easy testing.
 
 ### JSON Files
 Stored inside:
-- /data/users.json
-- /data/<user1>_<user2>.json
-- /data/groups.json
-- /data/group{groupName}.json
+- `/data/users.json`
+- `/data/<user1>_<user2>.json`
+- `/data/groups.json`
+- `/data/group_{groupName}.json`
 
 ### Utilities
 - Used Swagger UI for local testing
@@ -63,22 +63,22 @@ Stored inside:
 - Local login session tracking
 
 ## Tech Stack
-- Backend
- - Java
- - Spring Boot
- - Spring Web
- - Spring Context
- - Lombok
- - Jackson (ObjectMapper for JSON)
-- Frontend:
- - None (API-only backend)
- - Swagger UI used for testing requests
-- Database:
- - Pure JSON file storage
-- Other tools:
- - Swagger/OpenAPI
- - Maven build system
- - IntelliJ IDEA
+### Backend
+- Java
+- Spring Boot
+- Spring Web
+- Spring Context
+- Lombok
+- Jackson (ObjectMapper for JSON)
+### Frontend
+- None (API-only backend)
+- Swagger UI used for testing requests
+### Database
+- Pure JSON file storage
+### Other Tools
+- Swagger/OpenAPI
+- Maven build system
+- IntelliJ IDEA
 
 ## Screenshots / Demo
 Pending video upload.
