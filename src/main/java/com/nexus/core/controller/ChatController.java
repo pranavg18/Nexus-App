@@ -78,9 +78,12 @@ public class ChatController {
     public ResponseEntity<String> joinGroup(@RequestParam String groupName, @RequestParam String username) throws IOException {
         if (userService.findUser(username).isEmpty()) return ResponseEntity.badRequest().body("User not found");
 
-        boolean added = chatService.addMemberToGroup(groupName, username);
-        if (added) return ResponseEntity.ok("Joined group " + groupName);
-        else return ResponseEntity.badRequest().body("Failed to join. Group might not exist or user already in.");
+        if(userService.isLoggedIn(username)){
+            boolean added = chatService.addMemberToGroup(groupName, username);
+            if (added) return ResponseEntity.ok("Joined group " + groupName);
+            else return ResponseEntity.badRequest().body("Failed to join. Group might not exist or user already in.");
+        }
+        else return ResponseEntity.badRequest().body("User is not logged in");
     }
 
     @PostMapping("/group/send")
