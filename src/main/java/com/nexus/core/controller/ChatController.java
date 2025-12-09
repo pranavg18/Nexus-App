@@ -66,9 +66,12 @@ public class ChatController {
     public ResponseEntity<String> createGroup(@RequestParam String groupName, @RequestParam String creator) throws IOException {
         if (userService.findUser(creator).isEmpty()) return ResponseEntity.badRequest().body("Creator not found");
 
-        boolean created = chatService.createGroup(groupName, creator);
-        if (created) return ResponseEntity.ok("Group " + groupName + " created.");
-        else return ResponseEntity.badRequest().body("Group already exists.");
+        if(userService.isLoggedIn(creator)){
+            boolean created = chatService.createGroup(groupName, creator);
+            if (created) return ResponseEntity.ok("Group " + groupName + " created.");
+            else return ResponseEntity.badRequest().body("Group already exists.");
+        }
+        else return ResponseEntity.badRequest().body("Creator is not logged in");
     }
 
     @PostMapping("/group/join")
