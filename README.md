@@ -10,8 +10,8 @@ Nexus App is a minimal, backend-only chat platform built using Spring Boot. It i
 - [Configuration](#configuration)
 - [Usage](#usage)
 - [API Reference](#api-reference)
-- [Roadmap / Future Improvements](#roadmap--future-improvements)
 - [Known Issues](#known-issues)
+- [Roadmap / Future Improvements](#roadmap--future-improvements)
 - [Credits](#credits)
 - [License](#license)
 
@@ -144,17 +144,15 @@ No configuration required, although you can modify in `src/main/resources/applic
 | POST   | `/send`        | Send a message to a group       |
 | GET    | `/history`     | View group chat history         |
 
-
-## Roadmap / Future Improvements
-- Typing indicators, online status
-- Frontend UI (React or Angular)
-- Message search
-- File transfer of images, videos, etc.
-- Expansion of group admin roles
-
 ## Known Issues
 - JSON files may grow large over time
 - Anyone can join group without needing approval from admin
+
+## Roadmap / Future Improvements
+- Replace JSON with database to reduce space complexity
+- Expansion of group admin roles
+- Frontend UI (React or Angular)
+- File transfer of images, videos, etc.
 
 ## Credits
 ### 1. Kulshresth (IMT2024065)
