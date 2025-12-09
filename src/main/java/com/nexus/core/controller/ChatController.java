@@ -126,8 +126,11 @@ public class ChatController {
         if (!userService.checkCredentials(sender, password))
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Password.");
 
-        boolean deleted = chatService.deleteMessageForEveryone(sender, recipient, timestamp, isGroup);
-        if (deleted) return ResponseEntity.ok("Message deleted for everyone");
-        else return ResponseEntity.badRequest().body("Message not found or you are not the sender");
+        if(userService.isLoggedIn(sender)){
+            boolean deleted = chatService.deleteMessageForEveryone(sender, recipient, timestamp, isGroup);
+            if (deleted) return ResponseEntity.ok("Message deleted for everyone");
+            else return ResponseEntity.badRequest().body("Message not found or you are not the sender");
+        }
+        else return ResponseEntity.badRequest().body("Sender is not logged in");
     }
 }
