@@ -40,7 +40,7 @@ Swagger UI was used for easy testing.
 - Retrieve chat history
 - Message timestamps
 - Delete a specific message for everyone
-- Clear chat only for yourself (WhatsApp's "delete for me")
+- Clear chat only for yourself
 
 ### Group Chat
 - Create groups
@@ -48,7 +48,7 @@ Swagger UI was used for easy testing.
 - Send group messages
 - Retrieve group history
 - Delete messages in groups
-- Clear group chat for yourself
+- Clear group chat only for yourself
 
 ### JSON Files
 Stored inside:
