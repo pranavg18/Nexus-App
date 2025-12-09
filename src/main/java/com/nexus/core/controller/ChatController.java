@@ -37,11 +37,13 @@ public class ChatController {
             return ResponseEntity.badRequest().body("Sender not found");
         if (userService.findUser(msg.getRecipient()).isEmpty())
             return ResponseEntity.badRequest().body("Recipient not found");
-
-        msg.setTimestamp(getCurrentTime());
-        msg.setGroupMessage(false);
-        chatService.saveMessage(msg);
-        return ResponseEntity.ok("Message sent");
+        if (userService.isLoggedIn(msg.getSender())){
+            msg.setTimestamp(getCurrentTime());
+            msg.setGroupMessage(false);
+            chatService.saveMessage(msg);
+            return ResponseEntity.ok("Message sent");
+        }
+        else return ResponseEntity.badRequest().body("Sender is not logged in");
     }
 
     @GetMapping("/history")
