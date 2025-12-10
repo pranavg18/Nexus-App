@@ -86,7 +86,9 @@ Stored inside:
 ![Swagger Homepage](https://github.com/user-attachments/assets/262bc634-da16-40fd-9d6e-3714ee8c3d54)
 This is a high-level view of what our backend application looks like on Swagger UI. For more information regarding all the features and how they work, refer to the demo video below.
 ### Demo Video
+
 See the full walkthrough of Nexus App:
+
 [full-demo-video.mp4](https://github.com/user-attachments/assets/3e882b10-bbc9-42f3-a77c-419ba3fb42ee)
 
 ## Installation
