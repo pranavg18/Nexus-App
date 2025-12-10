@@ -95,21 +95,23 @@ See the full walkthrough of Nexus App:
 Run the following commands in terminal.
 
 ### 1. Clone the repository
+
 ```bash
 git clone https://github.com/htserhsluk/Nexus-App
 cd nexus-app
 ```
 
 ### 2. Ensure Java (atleast 17+) and Maven are installed
-```java -version
+
+```
+java -version
 mvn -version
 ```
 
 ### 3. Install Lombok plugin (IntelliJ)
-- Go to File -> Settings -> Plugins -> Search "Lombok"
-- Install and restart
-- Enable annotation processing:
- - Settings -> Build -> Compiler -> Annotation Processors -> Enable
+1. Go to File -> Settings -> Plugins -> Search "Lombok"
+2. Install and restart
+3. Settings -> Build, Execution, Deployment -> Compiler -> Annotation Processors -> Enable annotation processing
 
 ### 4. Run the application
 - Using IntelliJL
