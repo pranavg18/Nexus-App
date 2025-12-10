@@ -164,18 +164,27 @@ No configuration required, although you can modify in `src/main/resources/applic
 ## Credits
 All four people recorded different parts of the video, which were merged together in the end. The voiceover was done by Kulshresth.
 
+Listed below are the API Endpoints managed by each person.
+
 ### 1. Kulshresth (IMT2024065)
 - Group Leader
-- [AuthController.java](./src/main/java/com/nexus/core/controller/AuthController.java)
-- [Message.java](./src/main/java/com/nexus/core/model/Message.java)
-- [User.java](./src/main/java/com/nexus/core/model/User.java)
+- Demo video voiceover
+- POST `/api/auth/logout`
+- POST `/api/chat/group/join`
+- DELETE `/api/chat/clear-chat`
 ### 2. Pranav Goyal (BT2024086)
-- [UserService.java](./src/main/java/com/nexus/core/service/UserService.java)
+- POST `/api/auth/register`
+- POST `/api/chat/send`
+- GET `/api/chat/history/`
 - Created the [README](./README.md)
 ### 3. Hrishabh Sharrma (BT2024070)
-- [ChatController.java](./src/main/java/com/nexus/core/controller/ChatController.java)
+- POST `/api/chat/group/create`
+- DELETE `/api/chat/delete-message`
+- DELETE `/api/auth/delete`
 ### 4. Aksha Alkesh Jain (BT2024015)
-- [ChatService.java](./src/main/java/com/nexus/core/service/ChatService.java)
+- POST `/api/auth/login`
+- GET `/api/chat/group/history`
+- POST `/api/chat/group/send`
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
