@@ -114,10 +114,10 @@ mvn -version
 3. Settings -> Build, Execution, Deployment -> Compiler -> Annotation Processors -> Enable annotation processing
 
 ### 4. Run the application
-- Using IntelliJL
- - Run -> NexusApplication
+- Using IntelliJ:
+  - Run -> NexusApplication
 - Or using Maven:
- - `mvn spring-boot:run`
+  - `mvn spring-boot:run`
 
 Check which port it runs on, and then open the URL `http://localhost:<port_number>` in your browser.
 
