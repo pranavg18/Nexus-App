@@ -5,7 +5,7 @@ Nexus App is a minimal, backend-only chat platform built using Spring Boot. It i
 - [About](#about)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
-- [Screenshots / Demo](#screenshots--demo)
+- [Demo](#demo)
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Usage](#usage)
@@ -17,11 +17,11 @@ Nexus App is a minimal, backend-only chat platform built using Spring Boot. It i
 
 ## About
 Nexus App is a lightweight communication backend that supports:
-- User registration and authentication
+- User registration, authentication, logout, and deletion
 - One-on-one direct messaging (DM) between users
 - Group creation, joining, and group messaging
 - Clearing chats
-- Deleting messages for everyone in group
+- Deleting messages for everyone, both in DMs as well as in group chats
 - JSON file-based database system
 
 Swagger UI was used for easy testing.
@@ -81,7 +81,8 @@ Stored inside:
 - Maven build system
 - IntelliJ IDEA
 
-## Screenshots / Demo
+## Demo
+
 Pending video upload.
 
 ## Installation
@@ -159,16 +160,16 @@ All four people recorded different parts of the video, which were merged togethe
 
 ### 1. Kulshresth (IMT2024065)
 - Group Leader
-- AuthController.java
-- Message.java
-- User.java
+- [AuthController.java](./src/main/java/com/nexus/core/controller/AuthController.java)
+- [Message.java](./src/main/java/com/nexus/core/model/Message.java)
+- [User.java](./src/main/java/com/nexus/core/model/User.java)
 ### 2. Pranav Goyal (BT2024086)
-- UserService.java
-- Created the README
+- [UserService.java](./src/main/java/com/nexus/core/service/UserService.java)
+- Created the [README](./README.md)
 ### 3. Hrishabh Sharrma (BT2024070)
-- ChatController.java
+- [ChatController.java](./src/main/java/com/nexus/core/controller/ChatController.java)
 ### 4. Aksha Alkesh Jain (BT2024015)
-- ChatService.java
+- [ChatService.java](./src/main/java/com/nexus/core/service/ChatService.java)
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
