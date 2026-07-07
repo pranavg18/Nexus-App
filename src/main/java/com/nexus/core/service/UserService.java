@@ -18,8 +18,8 @@ public class UserService {
     private static final Path USERS_FILE = DATA_DIR.resolve("users.json");
     private final ObjectMapper objectMapper;
 
-    // Session tracker
-    private final Set<String> loggedInUsers = new HashSet<>();
+    // Password encoder
+    private final org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder passwordEncoder = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
 
     public UserService(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
@@ -61,47 +61,28 @@ public class UserService {
         for (User user : allUsers) {
             if (user.getUsername().equals(newUser.getUsername())) return false; // User exists
         }
+
+        // Hash the password before saving
+        String hashedPassword = passwordEncoder.encode(newUser.getPassword());
+        newUser.setPassword(hashedPassword);
+
         allUsers.add(newUser);
         saveAllUsers(allUsers);
         return true;
     }
 
     public boolean deleteUser(String username, String password) throws IOException {
+        if (!checkCredentials(username, password))
+            return false;
+
         List<User> allUsers = getAllUsers();
-        User target = null;
-        for (User user : allUsers) {
-            if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-                target = user;
-                break;
-            }
-        }
-        if (target != null) {
-            allUsers.remove(target);
-            saveAllUsers(allUsers);
-            loggedInUsers.remove(username); // Force logout
-            return true;
-        }
-        return false;
+        allUsers.removeIf(u -> u.getUsername().equals(username));
+        saveAllUsers(allUsers);
+        return true;
     }
 
-    public boolean login(String username, String password) throws IOException {
-        if (checkCredentials(username, password)) {
-            loggedInUsers.add(username);
-            return true;
-        }
-        return false;
-    }
-
-    public void logout(String username) {
-        loggedInUsers.remove(username);
-    }
-
-    public boolean isLoggedIn(String username) {
-        return loggedInUsers.contains(username);
-    }
-
-    public boolean checkCredentials(String username, String password) throws IOException {
+    public boolean checkCredentials(String username, String rawPassword) throws IOException {
         Optional<User> userOpt = findUser(username);
-        return userOpt.isPresent() && userOpt.get().getPassword().equals(password);
+        return userOpt.isPresent() && passwordEncoder.matches(rawPassword, userOpt.get().getPassword());
     }
 }
