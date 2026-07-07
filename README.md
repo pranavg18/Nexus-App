@@ -1,3 +1,5 @@
+Note: This project was originally developed collaboratively with a team. I am continuing to build upon it independently to expand its capabilities.
+
 # Nexus-App
 
 Nexus App is a minimal, backend-only chat platform built using Spring Boot. It is designed to mimic WhatsApp-like messaging functionality without a database. Instead, all the data (users, conversations, group chats, message metadata) is stored in JSON files.
