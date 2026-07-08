@@ -34,6 +34,12 @@ public class UserRepository {
         }
     }
 
+    public boolean existsByUsername(String username) {
+        String sql = "SELECT COUNT(*) FROM users WHERE username = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, username);
+        return (count != null && count > 0);
+    }
+
     public void save(User user) {
         String sql = "INSERT INTO users (username, password) VALUES (?, ?)";
         jdbcTemplate.update(sql, user.getUsername(), user.getPassword());

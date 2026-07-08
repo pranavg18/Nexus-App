@@ -38,7 +38,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         final String username = jwtUtil.extractUsername(jwt);
 
         // If we found a username and Spring Security doesn't already know who is logged in
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() != null) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             // Validate the token using the secret key
             if (jwtUtil.validateToken(jwt, username)) {
                 // Tell Spring Security that this user's token is legit so let them in

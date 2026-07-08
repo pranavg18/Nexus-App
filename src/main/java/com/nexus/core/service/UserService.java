@@ -1,88 +1,55 @@
 package com.nexus.core.service;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nexus.core.model.User;
+import com.nexus.core.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.Optional;
 
 @Service
 public class UserService {
-    private static final Path DATA_DIR = Paths.get("data");
-    private static final Path USERS_FILE = DATA_DIR.resolve("users.json");
-    private final ObjectMapper objectMapper;
+    private final UserRepository userRepository;
 
     // Password encoder
     private final org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder passwordEncoder = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
 
-    public UserService(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
+    public UserService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    private void createDir() throws IOException {
-        if (!Files.exists(DATA_DIR)) Files.createDirectories(DATA_DIR);
-    }
-
-    public List<User> getAllUsers() throws IOException {
-        createDir();
-        File file = USERS_FILE.toFile();
-        if (!file.exists()) return new ArrayList<>();
-        return objectMapper.readValue(file, new TypeReference<List<User>>() {});
-    }
-
-    private void saveAllUsers(List<User> users) throws IOException {
-        createDir();
-        objectMapper.writeValue(USERS_FILE.toFile(), users);
-    }
-
-    public Optional<User> findUser(String username) throws IOException {
-        List<User> allUsers = getAllUsers();
-        for (User user : allUsers) {
-            if (user.getUsername().equals(username)) return Optional.of(user);
-        }
-        return Optional.empty();
+    public Optional<User> findUser(String username) {
+        return userRepository.findByUsername(username);
     }
 
     // Password Strength Check
     public boolean isStrongPassword(String password) {
         // At least 8 chars, 1 letter, 1 number, 1 special char
         String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$";
-        return password != null && password.matches(regex);
+        return (password != null && password.matches(regex));
     }
 
-    public boolean addUser(User newUser) throws IOException {
-        List<User> allUsers = getAllUsers();
-        for (User user : allUsers) {
-            if (user.getUsername().equals(newUser.getUsername())) return false; // User exists
-        }
+    public boolean addUser(User newUser) {
+        if (userRepository.existsByUsername(newUser.getUsername()))
+            return false;
 
         // Hash the password before saving
         String hashedPassword = passwordEncoder.encode(newUser.getPassword());
         newUser.setPassword(hashedPassword);
 
-        allUsers.add(newUser);
-        saveAllUsers(allUsers);
+        userRepository.save(newUser);
         return true;
     }
 
-    public boolean deleteUser(String username, String password) throws IOException {
+    public boolean deleteUser(String username, String password) {
         if (!checkCredentials(username, password))
             return false;
 
-        List<User> allUsers = getAllUsers();
-        allUsers.removeIf(u -> u.getUsername().equals(username));
-        saveAllUsers(allUsers);
+        userRepository.deleteByUsername(username);
         return true;
     }
 
-    public boolean checkCredentials(String username, String rawPassword) throws IOException {
+    public boolean checkCredentials(String username, String rawPassword) {
         Optional<User> userOpt = findUser(username);
-        return userOpt.isPresent() && passwordEncoder.matches(rawPassword, userOpt.get().getPassword());
+        return (userOpt.isPresent() && passwordEncoder.matches(rawPassword, userOpt.get().getPassword()));
     }
 }
